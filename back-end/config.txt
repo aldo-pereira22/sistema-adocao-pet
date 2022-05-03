@@ -1,0 +1,2 @@
+1 - iniciar o banco de dados mongo no container dokcer: docker start "nomedocontainer"
+2 - rodar o comando npm run start para iniciar o back-end

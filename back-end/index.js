@@ -12,6 +12,8 @@ app.use(cors({ credentials: true, origin: "*" }))
 app.use(express.static('public'))
 
 // Routes
+const UserRoutes = require('./routes/UserRoutes')
+app.use('/users', UserRoutes)
 
 app.listen(5000, (req, res) => {
     console.log("App rodando na porta: 5000")
