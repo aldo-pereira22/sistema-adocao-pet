@@ -121,8 +121,6 @@ module.exports = class UserController {
         if (req.headers.authorization) {
             const token = getToken(req)
 
-
-            console.log("\n\n\nTOKEN:\n", token)
             const decoded = jwt.verify(token, 'nossosecret')
             currentUser = await User.findById(decoded.id)
             currentUser.password = undefined
@@ -132,4 +130,21 @@ module.exports = class UserController {
 
         res.status(200).send(currentUser)
     }
+    static async getUserById(req, res) {
+        const id = req.params.id
+        console.log(id)
+
+        try {
+            const user = await User.findById(id).select('-password')
+            res.status(200).json(user)
+
+        } catch (error) {
+            console.log(error)
+            res.status(422).json({
+                message: "Usuário não encontrado"
+            })
+        }
+
+    }
+
 }

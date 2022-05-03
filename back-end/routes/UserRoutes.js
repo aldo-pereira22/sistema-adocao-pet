@@ -5,6 +5,7 @@ const UserController = require('../controllers/UserController')
 router.post('/register', UserController.register)
 router.post('/login', UserController.login)
 router.get('/checkuser', UserController.checkuser)
+router.get('/:id', UserController.getUserById)
 
 
 // router.post('/checkuser', UserController.checoukt)
