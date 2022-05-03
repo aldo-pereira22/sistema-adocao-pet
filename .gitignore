@@ -42,7 +42,8 @@ build/Release
 node_modules/
 jspm_packages/
 
-public/images
+public/images/users
+public/images/pets
 
 # TypeScript v1 declaration files
 typings/
