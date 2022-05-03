@@ -6,7 +6,8 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
-# Diagnostic reports (https://nodejs.org/api/report.html)
+# Diagnostic reports (https://
+js.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # Runtime data
@@ -40,6 +41,8 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+
+public/images
 
 # TypeScript v1 declaration files
 typings/
