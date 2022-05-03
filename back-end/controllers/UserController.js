@@ -1,6 +1,12 @@
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
+
+// Funções auxiliares
 const createUserToken = require('../helpers/create-user-token')
+const getToken = require('../helpers/get-token')
+const jwt = require('jsonwebtoken')
+
+
 
 module.exports = class UserController {
     static async register(req, res) {
@@ -106,4 +112,24 @@ module.exports = class UserController {
         await createUserToken(user, req, res)
     }
 
+    static async checkuser(req, res) {
+
+
+        let currentUser
+
+
+        if (req.headers.authorization) {
+            const token = getToken(req)
+
+
+            console.log("\n\n\nTOKEN:\n", token)
+            const decoded = jwt.verify(token, 'nossosecret')
+            currentUser = await User.findById(decoded.id)
+            currentUser.password = undefined
+        } else {
+            currentUser = null
+        }
+
+        res.status(200).send(currentUser)
+    }
 }
