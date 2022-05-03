@@ -4,6 +4,10 @@ const bcrypt = require('bcrypt')
 // Funções auxiliares
 const createUserToken = require('../helpers/create-user-token')
 const getToken = require('../helpers/get-token')
+const getUserToken = require('../helpers/get-user-by-token')
+
+
+
 const jwt = require('jsonwebtoken')
 
 
@@ -148,9 +152,68 @@ module.exports = class UserController {
     }
 
     static async editUser(req, res) {
-        res.status(200).json({
-            message: "Deu certo update"
-        })
+        const id = req.params.id
+        const { name, email, phone, password, confirmpassword } = req.body
+        let image = ''
+
+
+
+
+        try {
+            // Validações 
+            // const user = await User.findById(id)
+            const token = getToken(req)
+            const user = await getUserToken(token)
+
+
+            if (!name) {
+                res.status(422).json({ message: ' O nome é obrigatório' })
+                return
+            }
+            if (!email) {
+                res.status(422).json({ message: ' O email é obrigatório' })
+                return
+            }
+            const userExist = await User.findOne({ email: email })
+            console.log("Linha 177", userExist)
+
+            if (user.email !== email && userExist) {
+                res.status(422).json({
+                    message: "Email ja cadastrado por outro usuário, Tente outro email"
+                })
+                return
+            }
+
+            if (!phone) {
+                res.status(422).json({ message: ' O telefone é obrigatório' })
+                return
+
+            }
+            if (!password) {
+                res.status(422).json({ message: ' A senha é obrigatória' })
+                return
+
+            }
+            if (!confirmpassword) {
+                res.status(422).json({ message: ' A confirmação de senha é obrigatória' })
+                return
+
+            }
+
+            if (password !== confirmpassword) {
+                res.status(422).json({ message: ' A senha e confirmação de senha devem ser iguais' })
+                return
+            }
+
+
+            res.status(200).json(user)
+
+
+        } catch (error) {
+            console.log("TRY CATCH", error)
+            res.status(404).json({ message: "Não encontrado!" })
+        }
+
     }
 
 }
