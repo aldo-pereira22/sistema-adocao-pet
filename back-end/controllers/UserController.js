@@ -175,7 +175,7 @@ module.exports = class UserController {
                 return
             }
             const userExist = await User.findOne({ email: email })
-            console.log("Linha 177", userExist)
+
 
             if (user.email !== email && userExist) {
                 res.status(422).json({
@@ -183,35 +183,34 @@ module.exports = class UserController {
                 })
                 return
             }
+            user.email = email
 
             if (!phone) {
                 res.status(422).json({ message: ' O telefone é obrigatório' })
                 return
 
             }
-            if (!password) {
-                res.status(422).json({ message: ' A senha é obrigatória' })
-                return
 
-            }
-            if (!confirmpassword) {
-                res.status(422).json({ message: ' A confirmação de senha é obrigatória' })
-                return
+            user.phone = phone
 
-            }
 
-            if (password !== confirmpassword) {
+            if (password != confirmpassword) {
                 res.status(422).json({ message: ' A senha e confirmação de senha devem ser iguais' })
                 return
+            } else if (password === confirmpassword && password != null) {
+                // Criação da senha
+                const salt = await bcrypt.genSalt(12)
+                const passwordHash = await bcrypt.hash(password, salt)
+                user.password = passwordHash
+
             }
-
-
-            res.status(200).json(user)
-
+            await User.findOneAndUpdate({ _id: user._id }, { $set: user }, { new: true })
+            res.status(200).json({
+                message: "Usuário atualizado com sucesso!"
+            })
 
         } catch (error) {
-            console.log("TRY CATCH", error)
-            res.status(404).json({ message: "Não encontrado!" })
+            res.status(500).json({ message: error })
         }
 
     }
