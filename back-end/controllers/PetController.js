@@ -4,6 +4,8 @@ const pet = require('../models/Pet')
 // Funções auxiliares
 const getToken = require('../helpers/get-token')
 const getUserByToken = require('../helpers/get-user-by-token')
+const objectId = require('mongoose').Types.ObjectId
+const { response } = require('express')
 
 
 
@@ -93,5 +95,43 @@ module.exports = class PetController {
 
     }
 
+    static async getAllUserPets(req, res) {
+        // Pegar usuário logado
+        const token = getToken(req)
+        const user = await getUserByToken(token)
+        const pets = await Pet.find({ 'user._id': user._id }).sort('-createdAt')
+        res.status(200).json({ pets })
+    }
 
+
+    static async getAllUserAdoptions(req, res) {
+        // Pegar usuário logado
+        const token = getToken(req)
+        const user = await getUserByToken(token)
+        const pets = await Pet.find({ 'adopter._id': user._id }).sort('-createdAt')
+        res.status(200).json({ pets })
+    }
+
+    static async getPetById(req, res) {
+        const id = req.params.id
+        if (!objectId.isValid(id)) {
+            res.status(422).json({ message: "Id inválido" })
+            return
+        }
+
+        const pet = await Pet.findById('6271c340c3525ef06af84d4c')
+        if (!pet) {
+            res.status(404).json({ message: "Pet não encontrado" })
+            return
+        }
+        res.status(200).json({
+            pet: pet
+        })
+    }
+
+
+    static async removePetById(req, res) {
+
+
+    }
 }
