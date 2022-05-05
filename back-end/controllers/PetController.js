@@ -252,4 +252,58 @@ module.exports = class PetController {
 
 
     }
+
+    static async schedule(req, res) {
+        const id = req.params.id
+        console.log()
+            // verificar se o pet exist
+        try {
+            const pet = await Pet.findById(id)
+                // // Verifica se existe o pet com esse id
+            if (!pet) {
+                res.status(404).json({ message: "Pet não encontrado!" })
+                return
+            }
+
+            // const token = getToken(req)
+            const user = await getUserByToken(getToken(req))
+                // verificar se o pet cadastrado é do proprio usuário
+            if (pet.user._id.equals(user._id)) {
+                res.status(500).json({
+                    message: " Vc não pode agendar uma visita para seu proprio pet"
+                })
+            }
+
+            // Verificar se esse usuário ja tem uma visita agendada com esse pet
+            if (pet.adpter) {
+                if (pet.adopter._id.equals(user._id)) {
+                    res.status(500).json({
+                        message: " Vc não ja tem uma visita agendada"
+                    })
+                    return
+                }
+            }
+            // Adicionar o usuário como adotante do pet
+            pet.adopter = {
+                _id: user._id,
+                name: user.name,
+                image: user.image
+            }
+            await Pet.findByIdAndUpdate(id, pet)
+
+            res.json(400).json({
+                message: `A visita foi agendada com sucesso, entre em contato com o
+                ${pet.username} pelo telefone  ${pet.user.phone}
+                
+                `
+            })
+            console.log("AQUII")
+            return
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({ message: "Erro ao pesquisar!", erro: error })
+            return
+        }
+
+    }
 }
