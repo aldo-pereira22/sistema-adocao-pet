@@ -291,18 +291,39 @@ module.exports = class PetController {
             }
             await Pet.findByIdAndUpdate(id, pet)
 
-            res.json(400).json({
+            res.status(200).json({
                 message: `A visita foi agendada com sucesso, entre em contato com o
                 ${pet.username} pelo telefone  ${pet.user.phone}
-                
                 `
             })
-            console.log("AQUII")
             return
         } catch (error) {
             console.log(error)
             res.status(500).json({ message: "Erro ao pesquisar!", erro: error })
             return
+        }
+
+    }
+
+
+    static async concludeAdoption(req, res) {
+        const id = req.params.id
+
+        try {
+            const pet = await Pet.findById(id)
+
+            // // Verifica se existe o pet com esse id
+            if (!pet) {
+                res.status(404).json({ message: "Pet não encontrado!" })
+                return
+
+            }
+            console.log("AQQQQQQQQQQQQQQQQQ")
+        } catch (error) {
+            res.status(500).json({
+                message: "Houve um erro ao buscar o pet",
+                error
+            })
         }
 
     }
