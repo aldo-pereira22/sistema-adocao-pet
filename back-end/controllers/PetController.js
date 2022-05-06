@@ -272,6 +272,8 @@ module.exports = class PetController {
                 res.status(500).json({
                     message: " Vc não pode agendar uma visita para seu proprio pet"
                 })
+
+                return
             }
 
             // Verificar se esse usuário ja tem uma visita agendada com esse pet
@@ -318,7 +320,19 @@ module.exports = class PetController {
                 return
 
             }
-            console.log("AQQQQQQQQQQQQQQQQQ")
+            // const token = getToken(req)
+            const user = await getUserByToken(getToken(req))
+                // verificar se o pet cadastrado é do proprio usuário
+            if (pet.user._id.toString() !== user._id.toString()) {
+                res.status(500).json({
+                    message: " Vc não pode agendar uma visita para seu proprio pet"
+                })
+
+                return
+            }
+            pet.available = false
+            await Pet.findByIdAndUpdate(id, pet)
+            res.status(200).json({ message: "Parabéns, vc acaba de adquirir um lindo PET!" })
         } catch (error) {
             res.status(500).json({
                 message: "Houve um erro ao buscar o pet",
