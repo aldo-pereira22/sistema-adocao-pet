@@ -1,22 +1,34 @@
 import Input from '../../form/Input'
 import styles from '../../form/Form.module.css'
 import { Link } from 'react-router-dom'
+import {useState} from 'react'
 
 
 function Register(){
-    function handleChange(e){
+    const [user, setUser] = useState({})
 
+
+    function handleChange(e){
+        setUser({...user, [e.target.name]:e.target.value})
+    }
+
+    function handleSubmit(e){
+        e.preventDefault()
+        // enviar um usuário para o banco
+        console.log(user)
+        
     }
     return (
         <section className={styles.form_container} >
             <h1>Registrar</h1>
-            <form >
+            <form onSubmit={handleSubmit} >
                 <Input 
                     text="Nome"
                     type="text"
                     name="name"
                     placeholder="Digite seu nome"
                     handleOnChange = {handleChange}
+                    autocomplete="name"
                     />
 
                 <Input 
@@ -25,6 +37,7 @@ function Register(){
                     name="phone"
                     placeholder="Digite seu telefone"
                     handleOnChange = {handleChange}
+                    autocomplete="phone"
                     />
 
                 <Input 
@@ -33,6 +46,8 @@ function Register(){
                     name="email"
                     placeholder="Digite seu E-mail"
                     handleOnChange = {handleChange}
+                    autocomplete="email"
+
                     />
  
                  <Input 
@@ -41,6 +56,8 @@ function Register(){
                     name="password"
                     placeholder="Digite sua senha"
                     handleOnChange = {handleChange}
+                    autocomplete="password"
+
                 />
                   <Input 
                     text="Confirmação de senha"
@@ -48,7 +65,9 @@ function Register(){
                     name="confirmpassword"
                     placeholder="Confirme sua senha"
                     handleOnChange = {handleChange}
-                />                                            
+                    autocomplete="confirmpassword"
+                />       
+
                 <input type="submit" value="Cadastrar" />
 
             </form>
