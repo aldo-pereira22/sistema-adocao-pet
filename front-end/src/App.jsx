@@ -10,19 +10,28 @@ import Footer from './components/Layouts/Footer';
 import NavBar from './components/Layouts/NavBar';
 import Container from './components/Layouts/Container'
 
+
+// Context
+import {UserProvider} from './context/UserContext'
+
 function App() {
     return (
         <Router >
-            <NavBar />
-            <Container>
-            <Routes>
-            <Route path="/" element={<Home/>} > </Route>
-            <Route path="/login" element={<Login />} > </Route>
-            <Route path="/register" element={<Register />} > </Route>
 
-            </Routes>
-            </Container>
-            <Footer />
+            <UserProvider>
+
+                <NavBar />
+                <Container>
+                    <Routes>
+                        <Route path="/" element={<Home/>} > </Route>
+                        <Route path="/login" element={<Login />} > </Route>
+                        <Route path="/register" element={<Register />} > </Route>
+
+                     </Routes>
+                </Container>
+                <Footer />
+            </UserProvider>
+
         </Router>
     )
         
