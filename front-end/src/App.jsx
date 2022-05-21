@@ -1,9 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
+
+// Páginas
 import Login from './components/pages/auth/Login';
 import Register from './components/pages/auth/Register';
 import Home from './components/pages/Home';
-
+import Message from './components/Layouts/Message'
 
 // Components
 import Footer from './components/Layouts/Footer';
@@ -21,6 +23,7 @@ function App() {
             <UserProvider>
 
                 <NavBar />
+                <Message />
                 <Container>
                     <Routes>
                         <Route path="/" element={<Home/>} > </Route>
