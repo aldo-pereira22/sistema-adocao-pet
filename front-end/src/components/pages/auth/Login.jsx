@@ -11,13 +11,22 @@ import Input from '../../form/Input'
 
 function Login(){
 
-    function handleChange(e){
+    const [user, setUser]  = useState({})
+    const {login} = useContext(Context)
 
+    function handleChange(e){
+        setUser({...user,[e.target.name] : e.target.value})
+        console.log(user)
+    }
+
+    function handleSubmit(e){
+        e.preventDefault()
+        login(user)
     }
     return (
         <section className={styles.form_container}>
             <h1>Login</h1>
-            <form action="">
+            <form onSubmit={handleSubmit} action="">
 
 
                 <Input
