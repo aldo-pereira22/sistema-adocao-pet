@@ -24,7 +24,10 @@ function NavBar(){
             
             { authenticaded ? ( 
                 <>
-    <li onClick={logout} >Sair</li>
+               <li>
+                    <Link to="/user/profile" >Perfil</Link>
+                </li>
+                    <li onClick={logout} >Sair</li>
                 </>
             
             ) : ( <>

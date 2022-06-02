@@ -5,12 +5,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './components/pages/auth/Login';
 import Register from './components/pages/auth/Register';
 import Home from './components/pages/Home';
+import Profile from './components/pages/User/Profile';
+
 import Message from './components/Layouts/Message'
 
 // Components
 import Footer from './components/Layouts/Footer';
 import NavBar from './components/Layouts/NavBar';
 import Container from './components/Layouts/Container'
+
 
 
 // Context
@@ -29,6 +32,8 @@ function App() {
                         <Route path="/" element={<Home/>} > </Route>
                         <Route path="/login" element={<Login />} > </Route>
                         <Route path="/register" element={<Register />} > </Route>
+                        <Route path="/user/profile" element={<Profile />} > </Route>
+
 
                      </Routes>
                 </Container>
