@@ -6,6 +6,7 @@ import styles from './Profile.module.css'
 import {useState,useEffect} from 'react'
 
 import useFlashMessage from '../../../hooks/useFlashMessage'
+import RoundedImage from '../../Layouts/RoundedImage'
 function Profile(){
     const [user,setUser] = useState({})
     const [preview,setPreview] = useState()
@@ -61,7 +62,9 @@ function Profile(){
             <div className={styles.profile_header} >
                 <h1>Perfil</h1>
                 {(user.image || preview) && (
-                    <img
+                    <RoundedImage
+                    
+                    
                     src={preview ? URL.createObjectURL(preview) : `${process.env.REACT_APP_API}/images/users/${user.image}`}
                     alt={user.name}
                     />

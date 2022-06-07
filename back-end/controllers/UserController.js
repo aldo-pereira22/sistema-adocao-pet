@@ -156,15 +156,11 @@ module.exports = class UserController {
         const id = req.params.id
         const { name, email, phone, password, confirmpassword } = req.body
 
-
-
-
-
         try {
-            // Validações 
             // const user = await User.findById(id)
             const token = getToken(req)
             const user = await getUserToken(token)
+                // Validações 
             let image = ''
             if (req.file) {
                 user.image = req.file.filename
@@ -172,6 +168,7 @@ module.exports = class UserController {
 
 
             if (!name) {
+
                 res.status(422).json({ message: ' O nome é obrigatório' })
                 return
             }
