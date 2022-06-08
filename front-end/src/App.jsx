@@ -18,6 +18,7 @@ import Container from './components/Layouts/Container'
 
 // Context
 import {UserProvider} from './context/UserContext'
+import MyPets from './components/pages/pets/MyPets';
 
 function App() {
     return (
@@ -33,6 +34,8 @@ function App() {
                         <Route path="/login" element={<Login />} > </Route>
                         <Route path="/register" element={<Register />} > </Route>
                         <Route path="/user/profile" element={<Profile />} > </Route>
+                        <Route path="/pet/mypets" element={<MyPets />} > </Route>
+
 
 
                      </Routes>
