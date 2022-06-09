@@ -7,6 +7,7 @@ import {useHistory} from 'react-router-dom'
 
 // hooks
 import useFlashMessage  from '../../../hooks/useFlashMessage'
+import PetForm from '../../form/PetForm'
 
 function AddPet(){
 
@@ -20,6 +21,7 @@ function AddPet(){
                  
             </p>
             <p>Formulário</p>
+            <PetForm btnText="Cadastrar" />
         </div>
         </section>
     )
