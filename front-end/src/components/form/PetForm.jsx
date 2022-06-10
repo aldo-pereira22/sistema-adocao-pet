@@ -5,24 +5,44 @@ import Select from './Select'
 
 function PetForm({handleSubmit, petData, btnText }){
 
+    const [pet, setPet] = useState(petData || {})
+    const [preview, setPreview] = useState([])
+    const colors = ["Branco", "Preto", "Cinza", "Caramelo", "Mesclado"]
 
     function onFileChange(e){
 
+        setPet({...pet, images: [...e.target.files]})
     }
     function handleChange(e){
+        setPet({...pet, [e.target.name]: [...e.target.value]})
+
 
     }
 
     function handleColor(e){
+        setPet({...pet, color:e.target.options[e.target.selectedIndex]})
 
     }
-    const [pet, setPet] = useState(petData || {})
-    const [preview, setPreview] = useState([])
-    const colors = ["Branco", "Preto", "Cinza", "Caramelo", "Mesclado"]
+    function submit(e){
+        e.preventDefault()
+        console.log(pet )
+        // handleSubmit(pet)
+    }
     return (
 
+<form onSubmit={submit} className={formStyles.form_container}>
 
-<form className={formStyles.form_container}>
+    <div>
+        {   preview.length > 0 
+            ? preview.map((image, index) => (
+                <p> Teste</p>
+            )):
+            pet.images && 
+            pet.images.map((image, index) => (
+                <p> Teste</p>
+            ))
+        }
+    </div>
         <Input
             text="Imagens do Pet"
             type="file"
