@@ -13,7 +13,7 @@ module.exports = class PetController {
 
     // Criar um pet
     static async create(req, res) {
-        const { name, age, weigth, color, } = req.body
+        const { name, age, weight, color, } = req.body
         const available = true
 
 
@@ -31,7 +31,7 @@ module.exports = class PetController {
             return
 
         }
-        if (!weigth) {
+        if (!weight) {
             res.status(422).json({ message: "O peso é obrigatório" })
             return
 
@@ -52,7 +52,7 @@ module.exports = class PetController {
         const pet = new Pet({
             name,
             age,
-            weigth,
+            weight,
             color,
             available,
             images: [],
@@ -168,7 +168,7 @@ module.exports = class PetController {
 
     static async update(req, res) {
         const id = req.params.id
-        const { name, age, weigth, color, available } = req.body
+        const { name, age, weight, color, available } = req.body
         const images = req.files
 
         const updateData = {}
@@ -209,12 +209,12 @@ module.exports = class PetController {
                 updateData.age = age
 
             }
-            if (!weigth) {
+            if (!weight) {
                 res.status(422).json({ message: "O peso é obrigatório" })
                 return
 
             } else {
-                updateData.weigth = weigth
+                updateData.weight = weight
 
             }
 

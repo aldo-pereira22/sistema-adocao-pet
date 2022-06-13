@@ -14,7 +14,7 @@ function PetForm({handleSubmit, petData, btnText }){
         setPet({...pet, images: [...e.target.files]})
     }
     function handleChange(e){
-        setPet({...pet, [e.target.name]: [...e.target.value]})
+        setPet({...pet, [e.target.name] : [e.target.value]})
 
 
     }
@@ -26,7 +26,7 @@ function PetForm({handleSubmit, petData, btnText }){
     function submit(e){
         e.preventDefault()
         console.log(pet )
-        // handleSubmit(pet)
+        handleSubmit(pet)
     }
     return (
 
@@ -70,8 +70,8 @@ function PetForm({handleSubmit, petData, btnText }){
 
         <Input
             text="Peso do pet"
-            type="number"
-            name="weight"
+            type="text"
+            name="weight" 
             placeholder="Digite o peso"
             handleOnChange={handleChange}
             value={pet.weight || ''}
