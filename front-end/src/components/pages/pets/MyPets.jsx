@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
-
+import api from '../../../utils/api'
 
 // hooks
 import useFlashMessage from '../../../hooks/useFlashMessage'
@@ -8,7 +8,18 @@ import RoundedImage from '../../Layouts/RoundedImage'
 function MyPets(){
     const [pets, setPets] = useState([])
     const [token] = useState(localStorage.getItem('token') || '')
+    const {setFlashMessage} = useFlashMessage()    
 
+    useEffect( ()=> {
+        api.get('/pets/mypets',{
+            headers: {
+                Authorization: `Bearer ${JSON.parse(token)}`
+            }
+        })
+        .then((response) => {
+            setPets(response.data.pets)
+        })
+    }, [token])
 
 
     return (
