@@ -1,0 +1,27 @@
+.petlist_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2em;
+}
+
+.petlist_header h1 {
+    margin: 0px;
+}
+
+.petlist_header a {
+    text-decoration: none;
+    background-color: #16479d;
+    color: #FFF;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .5s;
+    padding: .5em .8em;
+    border-radius: 5px;
+    border: 2px solid #16479d;
+}
+
+.petlist_header a:hover {
+    background-color: transparent;
+    color: #16479d;
+}

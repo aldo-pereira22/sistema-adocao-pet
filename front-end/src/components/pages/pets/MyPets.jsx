@@ -25,8 +25,8 @@ function MyPets(){
 
     return (
 
-        <section>
-            <div>
+        <section >
+            <div className={styles.petlist_header}>
                 <h1>My Pets</h1>
                 <Link to='/pet/add' > Cadastrar Pet</Link>
             </div>
