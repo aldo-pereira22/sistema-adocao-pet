@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import api from '../../../utils/api'
+import styles from './Dashboard.module.css'
 
 // hooks
 import useFlashMessage from '../../../hooks/useFlashMessage'
@@ -31,12 +32,31 @@ function MyPets(){
             </div>
             <div>
                 {pets.length > 0 && 
-                    <p>Meus pets Cadastrados</p>
+                    pets.map((pet) => (
+                        <div key={pet._id} > 
+                            <RoundedImage
+                                // src={`${process.env.REACT_APP_API}/images/pets/${pet.images[0]}`}
+                                alt={pet.name}
+                                width="75px"
+
+                            />
+                            <span className="bold"> {pet.name}</span>
+                            <div className={styles.action}>
+                                { pet.available ?
+                                (<>
+                                    {pet.adpoter && (
+                                        <button>Concluir adoção</button>
+                                    )}
+                                    <Link to={`/pet/edit/${pet._id}`}> Editar </Link>
+                                    <button>Excluir</button>
+                                </>)
+                                
+                                : <p>Pet Já adotado</p> }
+                            </div>
+                        </div>
+                    ))
                 }
-    RoundedImage
                 {pets.length === 0 && <p>Não Há pets cadastrados </p> }
-
-
             </div>
         </section>
     )
