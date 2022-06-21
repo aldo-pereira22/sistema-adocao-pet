@@ -30,7 +30,7 @@ function MyPets(){
                 Authorization: `Bearer ${JSON.parse(token)}`
             }
         }).then( (response) => {
-            const updatePets = pets.filter((pet)=> pet._id != id)
+            const updatePets = pets.filter((pet)=> pet._id !== id)
             setPets(updatePets)
             return response.data
         } ).catch((err) => {
