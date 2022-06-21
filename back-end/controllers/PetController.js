@@ -186,8 +186,7 @@ module.exports = class PetController {
             const token = getToken(req)
             const user = await getUserByToken(token)
 
-            console.log("ID do USUÀRIO:   ", user._id)
-            console.log("ID do DO DONO DO PET:   ", pet.user._id)
+
 
             if (pet.user._id.toString() !== user._id.toString()) {
                 res.status(422).json({ message: "Pet não pertence a esse usuário!" })
@@ -226,10 +225,8 @@ module.exports = class PetController {
 
             }
 
-            if (images.length === 0) {
-                res.status(422).json({ message: "A imagem é obrigatória" })
-                return
-            } else {
+            if (images.length > 0) {
+
                 updateData.images = []
                 images.map((image) => {
                     updateData.images.push(image.filename)

@@ -36,6 +36,22 @@ function EditPet(){
                 formData.append(key, pet[key])
             }
         })
+
+        const data =  await api.patch(`pets/${pet._id}`, formData, {
+            headers: {
+                Authorization: `Bearer ${JSON.parse(token)}`,
+                'Content-Type' : 'multipart/form-data'
+            }
+        })
+        .then( (response) => {
+            return response.data
+        })
+        .catch((err) => {
+            msgType='error'
+            return err.response.data
+        })
+
+        setFlashMessage(data.message, msgType)
     }
     return (
         <section>
