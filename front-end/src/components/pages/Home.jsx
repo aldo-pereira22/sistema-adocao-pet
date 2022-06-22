@@ -1,7 +1,6 @@
 import api from '../../utils/api'
 import {Link} from 'react-router-dom'
 import {useState, useEffect} from 'react'
-import axios from 'axios'
 
 
 import styles from './Home.module.css'
@@ -23,12 +22,16 @@ function Home(){
     }, [token])
     return (
         <section>
-
+            <div className={styles.pet_home_header} >
+                <h1>Adote um Pet</h1>
+                <p>Veja os detalhes de cada um e conheça o tutor deles</p>
+            </div>
             
-            <div>
+            <div className={styles.pet_container} >
                 {pets.length > 0 && 
                     pets.map((pet) => (
-                        <div>
+                        <div className={styles.pet_card} >
+                            <div style={{backgroundImage: `url(${process.env.REACT_APP_API}/images/pets/${pet.images[0]})`}} className={styles.pet_card_image} > </div>
                             <p>Imagem do pet</p>
                             <h3>{pet.name}</h3>
                             <p>
@@ -38,7 +41,7 @@ function Home(){
                                 pet.available ? (
                                     <Link to={`pet/${pet._id}`} > Mais detalhes </Link>
                                 ) : (
-                                    <p>Adotado</p>
+                                    <p className={styles.adopted_text} >Adotado</p>
 
                                 )
                             }
