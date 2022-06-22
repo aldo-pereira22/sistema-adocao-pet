@@ -83,6 +83,8 @@ module.exports = class PetController {
 
 
     static async getAll(req, res) {
+
+        console.log("AQUII SERVIDOR CHROME")
         try {
             const pets = await Pet.find().sort('-createdAt')
                 // pets.forEach(pet => {
@@ -226,7 +228,6 @@ module.exports = class PetController {
             }
 
             if (images.length > 0) {
-
                 updateData.images = []
                 images.map((image) => {
                     updateData.images.push(image.filename)
