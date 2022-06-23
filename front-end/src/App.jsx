@@ -22,6 +22,7 @@ import EditPet from './components/pages/pets/EditPet';
 import {UserProvider} from './context/UserContext'
 import MyPets from './components/pages/pets/MyPets';
 import AddPet from './components/pages/pets/AddPet';
+import PetDetails from './components/pages/pets/PetDetails';
 
 function App() {
     return (
@@ -40,6 +41,8 @@ function App() {
                         <Route path="/pet/mypets" element={<MyPets />} > </Route>
                         <Route path="/pet/add" element={ <AddPet /> } > </Route>
                         <Route path="/pet/edit/:id" element={ <EditPet /> } > </Route>
+                        <Route path="/pet/:id" element={ <PetDetails /> } > </Route>
+
                      </Routes>
                 </Container>
                 <Footer />
