@@ -20,16 +20,16 @@ function PetDetails(){
     return (
         <>
             {pet.name && (
-                <section>
-                    <div>
+                <section className={styles.pet_details_container}>
+                    <div className={styles.pet_details_header}>
                         <h1>Conhecendo o Pet:{pet.name}</h1>
                         <p>Se tiver interesse, marque uma visita para conhecê-lo</p>
                     </div>
 
-                    <div>
+                    <div className={styles.pet_images} >
                         <p>{ pet.images.map((image, index) => (
                             <img
-                                src={`${process.env.REACT_APP_API}/images/pets/${pet.image}`}
+                                src={`${process.env.REACT_APP_API}/images/pets/${image}`}
                                 alt={pet.name}
                                 key={index}                            
                             />
