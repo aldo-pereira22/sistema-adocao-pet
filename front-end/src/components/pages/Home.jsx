@@ -10,23 +10,32 @@ function Home(){
     const [pets, setPets] = useState([])
     const [token] = useState(localStorage.getItem('token') || '')
 
-    useEffect( ()=> {
-        api.get('/pets/mypets',{
-            headers: {
-                Authorization: `Bearer ${JSON.parse(token)}`
-            }
-        })
-        .then((response) => {
+
+    useEffect( () => {
+        api.get('/pets/').then((response) => {
             setPets(response.data.pets)
+            
         })
-    }, [token])
+        console.log("AQUIIIIIIII!!!!!", pets)
+    })
+
+    // useEffect( ()=> {
+    //     api.get('/pets/mypets',{
+    //         headers: {
+    //             Authorization: `Bearer ${JSON.parse(token)}`
+    //         }
+    //     })
+    //     .then((response) => {
+    //         setPets(response.data.pets)
+    //     })
+    // }, [token])
     return (
         <section>
             <div className={styles.pet_home_header} >
                 <h1>Adote um Pet</h1>
                 <p>Veja os detalhes de cada um e conheça o tutor deles</p>
             </div>
-            
+
             <div className={styles.pet_container} >
                 {pets.length > 0 && 
                     pets.map((pet) => (
